@@ -1,0 +1,42 @@
+
+<head>
+	<meta charset="utf-8">
+
+	<title>My Parse App</title>
+	<meta name="description" content="My Parse App">
+	<meta name="viewport" content="width=device-width">
+
+	<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.3.1.min.js"></script>
+	<script type="text/javascript" src="https://npmcdn.com/parse@2.1.0/dist/parse.js"></script>
+</head>
+
+<body>
+	<div id="login">
+		<input type="text" id="id">
+		<input type="text" id="password">
+		<input type="button" value="LOGIN" onclick="login()" >
+		<input type="button" value="SIGNUP" onclick="signup()">
+	</div>
+	<script type="text/javascript">
+		Parse.initialize("iii123");
+		Parse.serverURL="https://kimparseserver.herokuapp.com/parse"
+
+		function signup(){
+			window.location = "signup.html";
+		}
+
+		function login(){
+			var id = $("#id").val();	//input text안에 적은 값을 id에 넣겠다 
+			var password = $("#password").val();
+
+			Parse.User.logIn(id,password)
+			.then((user) => {
+				alert("Login success : Welcome! " + user.get("username"));
+				window.location = "main.html";
+			},(error) => {
+				alert("login error : " + error.message);
+				$("#password").val("");
+			});
+		}
+	</script>
+</body>
